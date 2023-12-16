@@ -1,0 +1,359 @@
+﻿<Window
+    x:Class="CloudMusic.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="clr-namespace:CloudMusic.Common"
+    xmlns:custom="clr-namespace:CloudMusic.CustomControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:CloudMusic.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    x:Name="window"
+    Title="MainView"
+    Width="1030"
+    Height="680"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    AllowsTransparency="True"
+    BorderThickness="5"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style
+            x:Key="NullStyleButton"
+            TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Content}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Window.Effect>
+        <DropShadowEffect
+            BlurRadius="10"
+            Direction="0"
+            Opacity="0.4"
+            ShadowDepth="0"
+            Color="Black" />
+    </Window.Effect>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+            <RowDefinition Height="73" />
+        </Grid.RowDefinitions>
+        <DockPanel
+            x:Name="topbar"
+            Background="{DynamicResource Primary_Color}"
+            LastChildFill="False">
+            <TextBlock
+                Margin="20,0,5,0"
+                FontSize="28"
+                Foreground="White"
+                Style="{StaticResource TextBlock_Icon}"
+                Text="&#xe611;" />
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="18"
+                Foreground="White"
+                Text="网易云音乐" />
+            <!--  导航日志功能  -->
+            <Border
+                Width="25"
+                Height="25"
+                Margin="80,0,10,0"
+                Background="#d93c3c"
+                CornerRadius="12.5">
+                <TextBlock
+                    FontSize="15"
+                    Foreground="White"
+                    Style="{StaticResource TextBlock_Icon}"
+                    Text="&#xe638;" />
+            </Border>
+            <Border
+                Width="25"
+                Height="25"
+                Background="#d93c3c"
+                CornerRadius="12.5">
+                <TextBlock
+                    FontSize="12"
+                    Foreground="White"
+                    Style="{StaticResource TextBlock_Icon}"
+                    Text="&#xe60b;" />
+            </Border>
+            <Border
+                Width="165"
+                Height="35"
+                Margin="15,0,10,0"
+                Background="#d93c3c"
+                CornerRadius="20">
+                <DockPanel>
+                    <TextBlock
+                        Margin="10,0,5,0"
+                        DockPanel.Dock="Left"
+                        FontSize="17"
+                        Foreground="White"
+                        Style="{StaticResource TextBlock_Icon}"
+                        Text="&#xe622;" />
+                    <TextBox
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        CaretBrush="White"
+                        Foreground="White" />
+                </DockPanel>
+            </Border>
+            <!--  头像  -->
+            <Border
+                Width="30"
+                Height="30"
+                Margin="100,0,0,0"
+                Background="White"
+                CornerRadius="15" />
+            <TextBlock
+                x:Name="text"
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                FontSize="13"
+                Foreground="White"
+                Text="船坞沙发沙发" />
+            <StackPanel
+                Margin="0,0,10,0"
+                DockPanel.Dock="Right"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="BtnMin"
+                    Width="40"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="—"
+                    Foreground="White" />
+                <Button
+                    x:Name="BtnMax"
+                    Width="40"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="☐"
+                    FontSize="18"
+                    Foreground="White" />
+                <Button
+                    Width="40"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="✕"
+                    FontSize="17"
+                    Foreground="White">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction
+                                MethodName="Close"
+                                TargetObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+        <!--  中间主内容区域  -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <!--  左边菜单栏  -->
+            <Border
+                BorderBrush="#9b9b9b"
+                BorderThickness="0,0,0.5,0">
+                <ScrollViewer
+                    Style="{StaticResource WideScrollViewer}"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <RadioButton
+                            Height="35"
+                            Margin="5,10,5,0"
+                            Command="{Binding DataContext.NavCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="DiscoverTheMusic"
+                            Content="发现音乐"
+                            Style="{StaticResource MemuButton}" />
+                        <RadioButton
+                            Height="35"
+                            Margin="5,2,5,0"
+                            Content="播客"
+                            Style="{StaticResource MemuButton}" />
+                        <RadioButton
+                            Height="35"
+                            Margin="5,2,5,0"
+                            Content="视频"
+                            Style="{StaticResource MemuButton}" />
+                        <RadioButton
+                            Height="35"
+                            Margin="5,2,5,0"
+                            Content="关注"
+                            Style="{StaticResource MemuButton}" />
+                        <RadioButton
+                            Height="35"
+                            Margin="5,2,5,0"
+                            Content="直播"
+                            Style="{StaticResource MemuButton}" />
+                        <RadioButton
+                            Height="35"
+                            Margin="5,2,5,0"
+                            Content="私人漫游"
+                            Style="{StaticResource MemuButton}" />
+                        <TextBlock
+                            Margin="15,15,0,0"
+                            FontSize="13"
+                            Opacity="0.6"
+                            Text="我的音乐" />
+                        <RadioButton
+                            Height="35"
+                            Margin="10,5,2,0"
+                            common:TextBlockExtension.Icon="&#xe83f;"
+                            common:TextBlockExtension.IconSize="17"
+                            Content="我喜欢的音乐"
+                            FontSize="13"
+                            Style="{StaticResource MenuButtonWithIcon}" />
+                        <RadioButton
+                            Height="30"
+                            Margin="10,5,2,0"
+                            common:TextBlockExtension.Icon="&#xe614;"
+                            common:TextBlockExtension.IconSize="17"
+                            Content="本地与下载"
+                            FontSize="13"
+                            Style="{StaticResource MenuButtonWithIcon}" />
+                        <RadioButton
+                            Height="30"
+                            Margin="10,5,2,0"
+                            common:TextBlockExtension.Icon="&#xe680;"
+                            common:TextBlockExtension.IconSize="17"
+                            Content="最近播放"
+                            FontSize="13"
+                            Style="{StaticResource MenuButtonWithIcon}" />
+                        <RadioButton
+                            Height="30"
+                            Margin="10,5,2,0"
+                            common:TextBlockExtension.Icon="&#xe636;"
+                            common:TextBlockExtension.IconSize="17"
+                            Content="我的音乐云盘"
+                            FontSize="13"
+                            Style="{StaticResource MenuButtonWithIcon}" />
+                        <RadioButton
+                            Height="30"
+                            Margin="10,5,2,0"
+                            common:TextBlockExtension.Icon="&#xe646;"
+                            common:TextBlockExtension.IconSize="17"
+                            Content="我的播客"
+                            FontSize="13"
+                            Style="{StaticResource MenuButtonWithIcon}" />
+                        <RadioButton
+                            Height="30"
+                            Margin="10,5,2,0"
+                            common:TextBlockExtension.Icon="&#xe617;"
+                            common:TextBlockExtension.IconSize="17"
+                            Content="我的收藏"
+                            FontSize="13"
+                            Style="{StaticResource MenuButtonWithIcon}" />
+                        <DockPanel
+                            Height="35"
+                            Background="Transparent">
+                            <Button
+                                Height="30"
+                                Margin="0,0,10,0"
+                                VerticalAlignment="Bottom"
+                                VerticalContentAlignment="Center"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                DockPanel.Dock="Right"
+                                Style="{StaticResource NullStyleButton}">
+                                <TextBlock
+                                    FontSize="15"
+                                    Style="{StaticResource TextBlock_Icon}"
+                                    Text="&#xe621;" />
+                            </Button>
+                            <CheckBox
+                                Margin="10,8,0,0"
+                                VerticalContentAlignment="Center">
+                                <CheckBox.Template>
+                                    <ControlTemplate>
+                                        <StackPanel
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <TextBlock
+                                                FontSize="14"
+                                                Opacity="0.6"
+                                                Text="创建的歌单" />
+                                            <TextBlock
+                                                x:Name="icon"
+                                                FontSize="16"
+                                                Opacity="0.5"
+                                                Style="{StaticResource TextBlock_Icon}"
+                                                Text="▸" />
+                                        </StackPanel>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter TargetName="icon" Property="Opacity" Value="0.8" />
+                                            </Trigger>
+                                            <Trigger Property="RadioButton.IsChecked" Value="true">
+                                                <Setter TargetName="icon" Property="Text" Value="▾" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </CheckBox.Template>
+                            </CheckBox>
+
+                        </DockPanel>
+                        <CheckBox
+                            Margin="10,10,0,0"
+                            VerticalContentAlignment="Center">
+                            <CheckBox.Template>
+                                <ControlTemplate>
+                                    <StackPanel
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            FontSize="14"
+                                            Opacity="0.6"
+                                            Text="收藏的歌单" />
+                                        <TextBlock
+                                            x:Name="icon"
+                                            FontSize="16"
+                                            Opacity="0.5"
+                                            Style="{StaticResource TextBlock_Icon}"
+                                            Text="▸" />
+                                    </StackPanel>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter TargetName="icon" Property="Opacity" Value="0.8" />
+                                        </Trigger>
+                                        <Trigger Property="RadioButton.IsChecked" Value="true">
+                                            <Setter TargetName="icon" Property="Text" Value="▾" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </CheckBox.Template>
+                        </CheckBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+            <!--  菜单内容切换区域  宽830  -->
+            <ContentControl
+                Grid.Column="1"
+                prism:RegionManager.RegionName="{x:Static common:RegionHelper.MainRegion}" />
+        </Grid>
+        <DockPanel
+            Grid.Row="2"
+            Background="Red" />
+    </Grid>
+
+</Window>

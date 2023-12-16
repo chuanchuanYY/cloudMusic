@@ -1,0 +1,39 @@
+﻿<UserControl
+    x:Class="CloudMusic.CustomControl.ButtonWithRadius"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CloudMusic.CustomControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border
+                            CornerRadius="{Binding Path=(local:ButtonWithRadius.Radius),RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Margin="{TemplateBinding Margin}"
+                            Background="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Background}"
+                            BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=BorderBrush}"
+                            BorderThickness="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=BorderThickness}">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Button x:Name="button">
+        <Button.Content>
+            <TextBlock
+                Name="textContent"
+                Style="{StaticResource TextBlock_Icon}"
+               Text="{Binding RelativeSource={RelativeSource AncestorType=Button},Path=Content}"/>
+        </Button.Content>
+    </Button>
+</UserControl>

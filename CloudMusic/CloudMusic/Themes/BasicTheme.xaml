@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  官方经典主题颜色  -->
+    <SolidColorBrush
+        x:Key="Primary_Color"
+        Color="#FFEC4141" />
+    <!--  字体颜色  -->
+    <SolidColorBrush
+        x:Key="Primary_FontColor"
+        Color="#FF313131" />
+    <!--  次要的字体颜色  -->
+    <SolidColorBrush
+        x:Key="Secondary_FontColor"
+        Color="White" />
+</ResourceDictionary>
